@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-from greyjay import __version__
-
 try:
     from setuptools import setup, find_packages
 except ImportError:
@@ -23,7 +21,7 @@ documentation_extras = [
 
 setup(
     name='greyjay',
-    version=__version__,
+    version='0.0.1',
     description='CIGI shared pages and blocks for wagtail',
     author="Albert O'Connor",
     author_email='aoconnor@cigionline.org',

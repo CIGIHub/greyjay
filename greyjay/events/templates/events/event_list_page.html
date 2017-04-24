@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static article_tags core_tags wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <div id="event-list-page" class="container">
+        <div class="narrow-content">
+            <h1 class="subheading">{{ self.title }}</h1>
+           {% for event in events %}
+            <div class="row">
+                <div class="col-xs-2">
+                    <figure>{% image event.organization.logo fill-120x120 %}</figure>
+                </div>
+                <div class="col-xs-10">
+                    <h3><a href="{{ event.event_link }}">{{ event.title }}</a></h3>
+                    <p>{{ event.date }}</p>
+                    <p>{{ event.location }}</p>
+                    <p>{{ event.body|richtext }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% if events.paginator.num_pages > 1 %}
+                <ul class="pager">
+                    <li class="previous">
+                        {% if events.has_previous %}
+                            <a href="?page={{ events.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Previous</a>
+                        {% endif %}
+                    </li>
+                    <li class="pages">
+                        Page {{ events.number }} of {{ events.paginator.num_pages }}
+                    </li>
+                    <li class="next">
+                        {% if events.has_next %}
+                            <a href="?page={{ events.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Next</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

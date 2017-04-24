@@ -2,10 +2,7 @@
 from __future__ import unicode_literals
 
 import django.db.models.deletion
-import wagtail.wagtailcore.blocks
 from django.db import migrations, models
-
-import people.fields
 
 
 class Migration(migrations.Migration):

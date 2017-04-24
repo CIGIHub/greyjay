@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0003_create_list_page'),
+        ('people', '0002_contributorlistpage'),
     ]
 
     operations = [

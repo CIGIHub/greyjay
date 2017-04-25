@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static article_tags core_tags wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <div id="external-article-page" class="container">
+        <div class="narrow-content">
+            <h1 class="subheading">{{ self.title }}</h1>
+            <div class="source">
+                <figure>{% image self.source.logo fill-120x120 %}</figure>
+            </div>
+
+            <div class="content">
+                {{ self.body|richtext }}
+                <a href="{{ self.website_link }}" target="_blank" >Read the article <i class="fa fa-external-link"></i></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

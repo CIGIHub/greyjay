@@ -1,0 +1,29 @@
+{% load static core_tags wagtailcore_tags wagtailimages_tags %}
+
+<article class="row teaser">
+    {% if article.editors_pick and self.filter != "editors_pick" %}
+        <div class="editors-pick-link"><div class="table"><div class="table-cell"><a href="{% slugurl 'editors-picks' %}" class="article-feature editors-pick">Editor's Pick</a></div></div></div>
+    {% endif %}
+
+    {% if article.main_image %}
+        <div class="col-sm-2">
+            <figure>
+                {% image article.main_image fill-120x120 %}
+            </figure>
+        </div>
+        <div class="col-xs-12 col-sm-10">
+    {% else %}
+        <div class="col-xs-12 col-sm-12">
+    {% endif %}
+        <{{ heading }} class="{% if article.editors_pick %} editors-pick{% endif %}"><a href="{{ article.url }}">{{ article.title }}</a></{{ heading }}>
+        {% if article.authors %}
+            {% spaceless %}
+                {% include 'articles/includes/article-contributors.html' with authors=article.authors date=article.first_published_at links=True %}
+            {% endspaceless %}
+         {% else %}
+            <div class="date">{{ article.first_published_at|date:"F j, Y" }}</div>
+        {% endif %}
+        {{ article.excerpt|richtext }}
+
+        </div>
+</article>

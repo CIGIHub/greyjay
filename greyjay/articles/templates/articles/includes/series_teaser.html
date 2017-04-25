@@ -1,0 +1,18 @@
+{% load static core_tags wagtailcore_tags wagtailimages_tags %}
+
+<article class="row teaser">
+    <div class="col-xs-12">
+        <h2><a href="{{ series.url }}">{{ series.title }}</a></h2>
+
+        {% if series.authors %}
+            {% include 'articles/includes/article-contributors.html' with authors=series.authors date=series.first_published_at %}
+        {% else %}
+            <div class="date">{{ series.first_published_at|date:"F j, Y" }}</div>
+        {% endif %}
+
+        <div class="series-teaser">
+            {{ series.body|truncatewords_html:80 }}
+        </div>
+
+    </div>
+</article>

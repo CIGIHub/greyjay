@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static article_tags core_tags wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div id="external-article-list-page" class="container">
+
+    <div class="narrow-content">
+        <h1>{{ self.title }}</h1>
+       {% for article in articles %}
+            <article class="row teaser">
+                <div class="col-sm-2">
+                {% spaceless %}
+                    <figure>
+                        {% if article.source and article.source.logo %}
+                            {% image article.source.logo fill-120x120 %}
+                        {% else %}
+                            {% get_site_defaults as defaults %}
+                            {% if defaults %}
+                                {% image defaults.default_external_article_source_logo fill-120x120 %}
+                            {% endif %}
+                        {% endif %}
+                    </figure>
+                {% endspaceless %}
+                </div>
+                <div class="col-xs-12 col-sm-10">
+                    <h2><a href="{{ article.website_link }}">{{ article.title }}</a></h2>
+                    {{ article.body|richtext }}
+                </div>
+            </article>
+        {% endfor %}
+
+        {% if articles.paginator.num_pages > 1 %}
+            <ul class="pager">
+                <li class="previous">
+                    {% if articles.has_previous %}
+                        <a href="?page={{ articles.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Previous</a>
+                    {% endif %}
+                </li>
+                <li class="pages">
+                    Page {{ articles.number }} of {{ articles.paginator.num_pages }}
+                </li>
+                <li class="next">
+                    {% if articles.has_next %}
+                        <a href="?page={{ articles.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Next</a>
+                    {% endif %}
+                </li>
+            </ul>
+        {% endif %}
+
+    </div>
+</div>
+
+
+
+{% endblock %}

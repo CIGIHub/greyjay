@@ -1,0 +1,98 @@
+{% load paths %}
+{% load static core_tags wagtailcore_tags wagtailimages_tags %}
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="{% base_styles 'table' %} max-width:600px;">
+    <tr>
+        <td valign="top" style="{% base_styles 'td' %}">
+            {% for article in self.articles%}
+                {% if forloop.first %}
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="{% base_styles 'table' %}">
+                        <tr>
+                            <td valign="top" style="{% base_styles 'td' %} padding: 0 20px">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="{% base_styles 'table' %}">
+                                    <tr>
+                                        <td valign="top" align="center" style="{% base_styles 'td' %} padding-top: 20px; padding-left: 0; padding-bottom: 10px; padding-right: 0; text-align:center;">
+                                            <h2 style="{% base_styles 'h2' %} font-size:36px;">
+                                                <a href="{{ article.full_url }}" target="_blank" style="{% base_styles 'a' %}">{{ article.title }}</a>
+                                            </h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" align="center" style="{% base_styles 'img' %} padding:0;">
+                                            {% image article.main_image width-580 as tmp_photo %}
+                                            <a href="{{ article.full_url }}" style="{% base_styles 'a' %} text-align:center;" target="_blank">
+                                                <img src="{{ tmp_photo.url }}" class="headlineImage" alt="{{ article.main_image.title }}" style="{% base_styles 'img' %} display: block; max-width:100%;" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" style="{% base_styles 'td' %} " >
+                                            {% if article.override_text %}
+                                                {{ article.override_text|paragraph_markup|html_cleanup|safe }}
+                                            {% else %}
+                                                {{ article.excerpt|html_cleanup|safe }}
+                                        {% endif %}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr style="height: 1px;">
+                            <td align="right" valign="top" class="divider" style="{% base_styles 'td' %} padding: 0; margin: 0;border-top: 1px solid #e1e1e1;">
+                            </td>
+                        </tr>
+                    </table>
+
+                 {% else %}
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="{% base_styles 'table' %}">
+
+                            <tr>
+                                <td valign="top" class="ImageCell" style="{% base_styles 'td' %} padding: 20px">
+                                    {% if article.override_image %}
+                                        {% image article.override_image circlecrop-80x80 as tmp_photo %}
+                                        <a href="{{ article.full_url }}" target="_blank" style="{% base_styles 'a' %}">
+                                            <img src="{{ tmp_photo.url }}" class="articleImage" width="80" height="80" alt="{{ article.main_image.title }}" style="{% base_styles 'img' %} font-size: 12px;" />
+                                        </a>
+                                    {% else %}
+                                        {% image article.main_image circlecrop-80x80 as tmp_photo %}
+                                        <a href="{{ article.full_url }}" target="_blank" style="{% base_styles 'a' %}">
+                                            <img src="{{ tmp_photo.url }}" width="80" height="80" alt="{{ article.main_image.title }}" style="{% base_styles 'img' %} font-size: 12px;" />
+                                        </a>
+                                    {% endif %}
+
+                                </td>
+
+                                <td valign="middle" style="{% base_styles 'td' %} padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 0;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="{% base_styles 'table' %}">
+                                        <tr>
+                                            <td style="{% base_styles 'td' %} padding: 0;">
+                                                <h3  style="{% base_styles 'h2' %}">
+                                                <a href="{{ article.full_url }}" target="_blank" style="{% base_styles 'a' %}">{{ article.title }}</a>
+                                            </h3>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="{% base_styles 'td' %} padding-top:10px;">
+                                                {% if article.override_text %}
+                                                {{ article.override_text|paragraph_markup|html_cleanup|safe }}
+                                            {% else %}
+                                                {{ article.excerpt|html_cleanup|safe }}
+                                            {% endif %}
+
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+                    </table> 
+
+                 {% endif %}
+            {% endfor %}
+
+        </td>
+    </tr>
+</table>

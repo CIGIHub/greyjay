@@ -1,0 +1,58 @@
+{% load paths %}
+{% load static core_tags wagtailcore_tags wagtailimages_tags theme_tags %}
+{% get_follow_link "twitter" as twitter_link %}
+{% get_follow_link "facebook" as facebook_link %}
+
+<table cellpadding="0" cellspacing="0" width="100%" style="{% base_styles 'table' %}">
+    <tr>
+        <td align="center" valign="top" style="{% base_styles 'td' %}">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="{% base_styles 'table' %}">
+                <tr>
+                    <td 
+                        width="100%" align="center" valign="middle"
+                        style="{% base_styles 'td' %} padding: 20px 0 0 0; text-align:center;">
+                        <a href="https://www.opencanada.org/"
+                           target="_blank" style="{% base_styles 'wordmark' %}">
+                           <img src="{% static 'img/opencanada-logo.png' %}"  alt="OpenCanada" height="18px" width="264px" />
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" align="center" id="newsletterTitle" style="{% base_styles 'td' %}">
+                        <h1 style="{% base_styles 'h1' %}
+                                font-family: proxima-nova, Helvetica, Arial, sans-serif;
+                                font-size: 32px;
+                                font-weight: 700;
+                                line-height: 130%;
+                                color: #ffffff;
+                                padding: 10px 0 10px 0;
+                                text-align:center;
+                                margin: 0px">WEEKLY DISPATCH</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="{% base_styles 'td' %}">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="{% base_styles 'table' %}">
+                            <tr>
+                               <td valign="top" align="right" style="padding-right: 5px; padding-left: 0px; padding-top: 0px; padding-bottom: 20px;">
+                                   <a style="{% base_styles 'a' %} color:#ffffff; font-size:12px;" href="{{ twitter_link }}" target="_blank" >
+                                        <img align="right" alt="twitter" src="{% static 'img/twitter-25.png' %}" width="20" style="{% base_styles 'img' %}
+                                           width:20px; height: 20px; padding-bottom: 0; display: block; vertical-align: bottom; " />
+                                    </a>       
+                               </td>
+                               <td valign="top" align="left" style="padding-right: 0px; padding-left: 5px; padding-top: 0px; padding-bottom: 20px;">
+                                    <a style="{% base_styles 'a' %} color:#ffffff;  font-size:12px;" href="{{ facebook_link }}" target="_blank">
+                                        <img align="left" alt="facebook" src="{% static 'img/facebook-25.png' %}" width="20" style="{% base_styles 'img' %}
+                                           width:20px; height: 20px; padding-bottom: 0; display: block; vertical-align: bottom;" />
+                                    </a>
+                               </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
+

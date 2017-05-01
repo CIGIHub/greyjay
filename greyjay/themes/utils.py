@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import get_template, TemplateDoesNotExist
 
 
-DEFAULT_THEME_NAME = getattr(settings, 'GREYJAY_DEFAULT_THEME_NAME', 'default')
+DEFAULT_THEME_CONTENT_NAME = getattr(settings, 'GREYJAY_DEFAULT_THEME_CONTENT_NAME', 'default')
 
 
 def get_themed_template_name(theme, original_template):
@@ -27,15 +27,23 @@ def theme_from_context(context):
         return None
 
 
-def get_default_content_theme():
-    Theme = apps.get_model(app_label='themes', model_name='Theme')
+def get_default_theme_content():
+    ThemeContent = apps.get_model(app_label='themes', model_name='ThemeContent')
 
+    # This is the new way of doing default theme content
+    default_theme_content = ThemeContent.objects.filter(default=True).first()
+
+    if default_theme_content is not None:
+        return default_theme_content
+
+    # This is for backwards compatability with Open Canada
     try:
-        return Theme.objects.get(name=DEFAULT_THEME_NAME)
-    except Theme.DoesNotExist:
+        return ThemeContent.objects.get(name=DEFAULT_THEME_CONTENT_NAME)
+    except ThemeContent.DoesNotExist:
         raise ImproperlyConfigured(
-            'Use of the theme_tags requires a theme with the name {name} to be created. The theme does not need'
-            ' ot be assigned to any page, but are default values for Theme Content when no theme is set'.format(
-                name=DEFAULT_THEME_NAME
+            'Use of the theme_tags requires either a ThemeContent object needs to have default set to True or a'
+            ' ThemeContent with the name {name} to be created. You can set the default theme content name with'
+            ' GREYJAY_DEFAULT_THEME_CONTENT_NAME'.format(
+                name=DEFAULT_THEME_CONTENT_NAME
             )
         )

@@ -6,21 +6,21 @@ register = template.Library()
 from greyjay.themes import utils
 
 
-def get_theme(context):
+def get_theme_content(context):
     try:
         theme = context['self'].theme
     except (KeyError, AttributeError):
         theme = None
 
     if theme is None:
-        return utils.get_default_content_theme()
+        return utils.get_default_theme_content()
     else:
-        return theme
+        return theme.content
 
 
 @register.simple_tag(takes_context=True)
 def get_contact_email(context):
-    theme = get_theme(context)
+    theme = get_theme_content(context)
 
     email = theme.content.contact_email
     if not email:
@@ -35,26 +35,26 @@ def get_contact_email(context):
 
 @register.simple_tag(takes_context=True)
 def get_text_block(context, usage):
-    theme = get_theme(context)
-    return theme.content.block_links.filter(theme_content=theme.content, block__usage=usage).first().block
+    content = get_theme_content(context)
+    return content.block_links.filter(block__usage=usage).first().block
 
 
 @register.simple_tag(takes_context=True)
 def get_follow_link(context, usage):
-    theme = get_theme(context)
-    return theme.content.follow_links.filter(theme_content=theme.content, block__usage=usage).first().block.link
+    content = get_theme_content(context)
+    return content.follow_links.filter(block__usage=usage).first().block.link
 
 
 @register.simple_tag(takes_context=True)
 def get_logo(context, usage):
-    theme = get_theme(context)
-    return theme.content.logo_links.filter(theme_content=theme.content, block__usage=usage).first().block.logo
+    content = get_theme_content(context)
+    return content.logo_links.filter(block__usage=usage).first().block.logo
 
 
 @register.simple_tag(takes_context=True)
 def get_logo_link(context, usage):
-    theme = get_theme(context)
-    return theme.content.logo_links.filter(theme_content=theme.content, block__usage=usage).first().block.link
+    content = get_theme_content(context)
+    return content.logo_links.filter(block__usage=usage).first().block.link
 
 
 @register.filter(name='split_string')

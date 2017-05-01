@@ -31,9 +31,12 @@ class ThemeContent(ClusterableModel):
         help_text="Only provide if this should be different from the site default email contact address.",
     )
 
+    default = models.BooleanField(default=True)
+
     panels = [
         FieldPanel('name'),
         FieldPanel('contact_email'),
+        FieldPanel('default'),
         InlinePanel('block_links', label="Content Blocks"),
         InlinePanel('follow_links', label="Follow Links"),
         InlinePanel('logo_links', label="Logos"),
@@ -49,7 +52,6 @@ register_snippet(ThemeContent)
 class Theme(models.Model):
     name = models.CharField(max_length=1024)
     folder = models.CharField(max_length=1024, default="themes/default")
-    is_default = models.BooleanField(default=False)
     content = models.ForeignKey(ThemeContent, null=True)
 
     def __str__(self):
@@ -58,7 +60,6 @@ class Theme(models.Model):
     panels = [
         FieldPanel('name'),
         FieldPanel('folder'),
-        FieldPanel('is_default'),
         SnippetChooserPanel('content'),
     ]
 

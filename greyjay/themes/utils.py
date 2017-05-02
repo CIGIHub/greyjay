@@ -21,8 +21,12 @@ def template_exists(template_name):
 
 
 def theme_from_context(context):
-    if 'self' in context and hasattr(context['self'], 'theme') and context['self'].theme is not None:
-        return context['self'].theme
+    '''
+    'self' is normally the page in a context, but for block 'self' get moved to 'page'
+    and 'self' is set to the block value.
+    '''
+    if 'page' in context and hasattr(context['page'], 'theme') and context['page'].theme is not None:
+        return context['page'].theme
     else:
         return None
 

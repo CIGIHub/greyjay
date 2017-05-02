@@ -13,10 +13,10 @@ article pages with many of our custom blocks.
 
 ## Themes
 
-`greyjay.themes` can enable theming of Wagtail Pages. There two main
-ways a theme can change how a page rendereds, themed templates and
-themed content. Themed includes are another possible way, but isn't
-implemented currently.
+`greyjay.themes` can enable theming of Wagtail Pages. There three main
+ways a theme can change how a page rendereds, themed templates, block
+themes, and themed content. Themed includes are another possible way, but
+isn't implemented currently.
 
 ### Enable themes
 
@@ -42,7 +42,7 @@ This adds a `theme` Foreign Key to your page for the Theme snippet,
 which will default to `None`. Unless `theme` is set the usual templates
 will be loaded and the default ThemeContent will be used.
 
-### Theme Templates
+### Themed Templates
 
 The `ThemeablePage` has the `theme` attribute set, the first place we
 will look for the template for the page is the Theme folder value
@@ -57,7 +57,35 @@ use the default template.
 This is implement by the `get_template` method on the `ThemeablePage`
 base class.
 
-### Theme Content
+### Themed Blocks
+
+When using a Wagtail StreamField you can customize a block to use a
+themed template if it uses a template to render. StructBlocks are the
+most common type of block we have themed.
+
+```
+from greyjay.themes.blocks import ThemeableMixin
+
+class RelatedItemsBlock(ThemeableMixin):
+    heading = blocks.CharBlock(default="Related")
+    items = blocks.ListBlock(blocks.PageChooserBlock(label="item"))
+
+    class Meta:
+        template = "articles/blocks/related_items_block.html"
+```
+
+Inorder for themed block to work you will need to define your own blocks
+which inherit from the mixing `greyjay.themes.blocks.ThemeableMixin`
+which overrides the render method.
+
+If a theme template isn't defined for a given block the default is used.
+
+*Note:* for the render method to be able to access the Page object and
+thus the theme, {% include_block %} rendering must be used. Convert a
+block to a string won't work, generally {{ block }}. [Wagtail Release
+Notes](http://docs.wagtail.io/en/v1.6/releases/1.6.html#include-block-tag-for-improved-streamfield-template-inclusion)
+
+### Themed Content
 
 The second aspect to themes is ThemeContent, which are collections of
 logos, logo links, text blocks, and follow links which tend to be found

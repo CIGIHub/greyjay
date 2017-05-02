@@ -31,7 +31,7 @@ class ThemeContent(ClusterableModel):
         help_text="Only provide if this should be different from the site default email contact address.",
     )
 
-    default = models.BooleanField(default=True)
+    default = models.BooleanField(default=False)
 
     panels = [
         FieldPanel('name'),

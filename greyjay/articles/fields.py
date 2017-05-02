@@ -15,6 +15,8 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 from greyjay.people.models import ContributorPage
 
+from greyjay.themes.blocks import ThemeableMixin
+
 
 class BodyField(StreamField):
     def __init__(self, block_types=None, **kwargs):
@@ -136,7 +138,7 @@ class ChapterField(StreamField):
         super(ChapterField, self).__init__(block_types, **kwargs)
 
 
-class RelatedItemsBlock(blocks.StructBlock):
+class RelatedItemsBlock(ThemeableMixin, blocks.StructBlock):
     heading = blocks.CharBlock(default="Related")
     items = blocks.ListBlock(blocks.PageChooserBlock(label="item"))
 
@@ -190,7 +192,7 @@ class BodyBlock(SimpleBodyBlock):
     ColumnedContent = ColumnarStreamBlock()
 
 
-class ChapterBodyBlock(blocks.StructBlock):
+class ChapterBodyBlock(ThemeableMixin, blocks.StructBlock):
     heading = blocks.CharBlock()
     body = BodyBlock(required=False)
     share_this_chapter = blocks.BooleanBlock(

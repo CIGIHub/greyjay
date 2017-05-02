@@ -76,7 +76,7 @@ class ThemeablePage(Page):
         abstract = True
 
     theme = models.ForeignKey(
-        'Theme',
+        Theme,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,

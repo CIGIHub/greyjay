@@ -35,6 +35,8 @@ from greyjay.base import (
 
 from greyjay.people.models import ContributorPage
 
+from greyjay.themes.models import ThemeablePage
+
 from . import fields as article_fields
 
 logger = logging.getLogger(__file__)
@@ -321,7 +323,7 @@ class ResponseArticleLink(Orderable, models.Model):
     ]
 
 
-class ArticlePage(Page, FeatureStyleFields, Promotable, ShareLinksMixin, PageLayoutOptions, VideoDocumentMixin):
+class ArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin, PageLayoutOptions, VideoDocumentMixin):
     excerpt = RichTextField(blank=True, default="")
     body = article_fields.BodyField()
     chapters = article_fields.ChapterField(blank=True, null=True)
@@ -570,8 +572,7 @@ class ArticlePage(Page, FeatureStyleFields, Promotable, ShareLinksMixin, PageLay
         ),
     ]
 
-    style_panels = [
-
+    style_panels = ThemeablePage.style_panels + [
         MultiFieldPanel(
             [
                 FieldPanel('include_main_image'),
@@ -787,7 +788,7 @@ class SeriesArticleLink(Orderable, models.Model):
     ]
 
 
-class SeriesPage(Page, FeatureStyleFields, Promotable, ShareLinksMixin, PageLayoutOptions, VideoDocumentMixin):
+class SeriesPage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin, PageLayoutOptions, VideoDocumentMixin):
     subtitle = RichTextField(blank=True, default="")
     short_description = RichTextField(blank=True, default="")
     body = article_fields.BodyField(blank=True, default="")
@@ -941,7 +942,7 @@ class SeriesPage(Page, FeatureStyleFields, Promotable, ShareLinksMixin, PageLayo
         )
     ]
 
-    style_panels = [
+    style_panels = ThemeablePage.style_panels + [
         MultiFieldPanel(
             [
                 FieldPanel('include_main_image'),

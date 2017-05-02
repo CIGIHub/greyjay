@@ -119,8 +119,8 @@ is either set based the `default` attribute being set to True or the
 
 ### Theme including
 
-*This hasn't been implemented yet*, but it maybe a preferable to helping
-themes where we want to change the header and footer.
+*This hasn't been implemented yet*, but it maybe a preferable to
+ThemeContent for themes where we want to change the header and footer.
 
 
 ## Settings

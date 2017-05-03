@@ -369,8 +369,8 @@ class ArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin
         default=1
     )
 
+    reading_time = models.PositiveIntegerField(default=0)
     include_author_block = models.BooleanField(default=True)
-
     visualization = models.BooleanField(default=False)
     interview = models.BooleanField(default=False)
     video = models.BooleanField(default=False)
@@ -524,6 +524,7 @@ class ArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin
         ImageChooserPanel('feature_image'),
         DocumentChooserPanel('video_document'),
         StreamFieldPanel('body'),
+        FieldPanel('reading_time'),
         SnippetChooserPanel('primary_topic'),
         InlinePanel('topic_links', label="Secondary Topics"),
         InlinePanel('response_links', label="Responses"),

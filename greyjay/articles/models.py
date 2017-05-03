@@ -43,8 +43,12 @@ logger = logging.getLogger(__file__)
 
 
 class ArticleListPage(PaginatedListPageMixin, Page):
-    subpage_types = ['ArticlePage',
-                     ]
+    subpage_types = [
+        'ArticlePage',
+    ]
+
+    short_description = RichTextField(blank=True, default="")
+
     articles_per_page = models.IntegerField(default=20)
     counter_field_name = 'articles_per_page'
     counter_context_name = 'articles'
@@ -73,6 +77,7 @@ class ArticleListPage(PaginatedListPageMixin, Page):
         return subpages
 
     content_panels = Page.content_panels + [
+        FieldPanel('short_description'),
         FieldPanel('articles_per_page'),
         FieldPanel('filter', widget=forms.Select),
     ]
@@ -730,6 +735,8 @@ class ArticleAuthorLink(Orderable, models.Model):
 class SeriesListPage(PaginatedListPageMixin, Page):
     subpage_types = ['SeriesPage']
 
+    short_description = RichTextField(blank=True, default="")
+
     series_per_page = models.IntegerField(default=5)
     counter_field_name = 'series_per_page'
     counter_context_name = 'series_list'
@@ -741,7 +748,8 @@ class SeriesListPage(PaginatedListPageMixin, Page):
         return subpages
 
     content_panels = Page.content_panels + [
-        FieldPanel('series_per_page')
+        FieldPanel('short_description'),
+        FieldPanel('series_per_page'),
     ]
 
     edit_handler = TabbedInterface([

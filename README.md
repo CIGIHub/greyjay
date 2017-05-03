@@ -49,7 +49,7 @@ will look for the template for the page is the Theme folder value
 prepended to the default template path for a given page.
 
 By default, a Page's template name is "app_name/model_name.html". With
-the theme we will look in "theme.folder/app_name/model_name.html" first.
+the themse we will look in "theme.folder/app_name/model_name.html" first.
 
 If theme template hasn't been created, the system will pass through and
 use the default template.
@@ -87,10 +87,10 @@ Notes](http://docs.wagtail.io/en/v1.6/releases/1.6.html#include-block-tag-for-im
 
 ### Themed Content
 
-The second aspect to themes is ThemeContent, which are collections of
+The third aspect to themes is ThemeContent, which are collections of
 logos, logo links, text blocks, and follow links which tend to be found
 in headers and footers which could need to customized if a theme implies
-a different organization.
+a different organization or different organizational unit.
 
 The content is access through a series of theme aware template tags.
 
@@ -110,8 +110,12 @@ The tags include:
 Each takes a string which should corespond to the `usage` attribute on
 each snippet.
 
-TODO: If a given usage isn't definited for a given theme we should fall
-through the default ThemeContent.
+If a given theme doesn't have the ThemeContent object associated with
+the usage, the default theme will be tried.
+
+If it can't be found at all it will raise an exception if `DEBUG` is
+`True` or return an empty string and log a warning is `DEBUG` is
+`False`.
 
 For a page without a theme set, the default ThemeContent is used, which
 is either set based the `default` attribute being set to True or the

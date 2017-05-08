@@ -47,6 +47,14 @@ class PaginatedListPageMixin(object):
         for page_number in range(2, self.get_paginator().num_pages + 1):
             yield '/?page=' + str(page_number)
 
+    def serve(self, request):
+        response = super(PaginatedListPageMixin, self).serve(request)
+
+        # Add X-Has-Next-Page header
+        response['X-Has-Next-Page'] = 'true' if response.context_data[self.counter_context_name].has_next() else 'false'
+
+        return response
+
 
 # TODO, be made more generic!
 class ShareLinksMixin(models.Model):

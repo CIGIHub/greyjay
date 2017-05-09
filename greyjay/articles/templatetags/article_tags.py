@@ -5,15 +5,21 @@ import urllib
 from django import template
 from django.utils.text import Truncator, slugify
 
-from greyjay.articles.models import (ArticlePage, ExternalArticlePage, SeriesPage,
-                             TopicListPage)
+from greyjay.articles.models import (
+    ArticlePage,
+    ExternalArticlePage,
+    SeriesPage,
+    TopicListPage,
+)
+from greyjay.articles.related import get_related_behavior
 
 register = template.Library()
 
 
 @register.filter(name='related_articles')
-def related_articles(value, number):
-    return value.related_articles(number)
+def related_articles(page, number):
+    func = get_related_behavior(page)
+    return func(page, number)
 
 
 @register.simple_tag(takes_context=True)

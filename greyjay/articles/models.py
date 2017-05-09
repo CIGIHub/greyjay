@@ -485,6 +485,12 @@ class ArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin
                 yield block
 
     def related_articles(self, number):
+        logger.warning(
+            'Method version of related_articles is being called instead of related.py version. '
+            'This is deprecated and will be removed.'.format(
+                self.pk
+            )
+        )
         included = [self.id]
         article_list = []
         if self.primary_topic:
@@ -905,6 +911,13 @@ class SeriesPage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin,
             yield block
 
     def related_articles(self, number):
+        logger.warning(
+            'Method version of related_articles is being called instead of related.py version. '
+            'This is deprecated and will be removed.'.format(
+                self.pk
+            )
+        )
+
         articles = []
         if self.primary_topic:
             articles = list(ArticlePage.objects.live().filter(primary_topic=self.primary_topic).distinct().order_by(

@@ -11,6 +11,40 @@ article pages with many of our custom blocks.
 `greyjay.people`, and `greyjay.themes` at minimum to function.
 
 
+## Related Articles
+
+The behavior of the `related_articles` filter can be set on a project
+basis. Here is the usage:
+
+```
+{% for article in  self|related_articles:10 %}
+{# ... #}
+{% endfor %}
+```
+
+There is a built in related article process which depends on greyjay
+topic and contributors, but you have customize it for your project and
+models.
+
+You need to call `register_related_article_behavior()` in a place which
+will be excuted on startup:
+
+```
+from greyjay.articles.models import ArticlePage
+from greyjay.articles.related import register_related_article_behavior
+
+
+def my_related(page, number):
+    #...
+
+
+# Somewhere which gets called on startup, like models.py or urls.py, or apps.py
+register_related_article_behavior(ArticlePage, my_related)
+```
+
+Related articles function take the page and the number related articles
+to return and returns a list of ArticlePage instances.
+
 ## Themes
 
 `greyjay.themes` can enable theming of Wagtail Pages. There three main

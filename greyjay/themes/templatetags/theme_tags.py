@@ -56,7 +56,7 @@ def get_contact_email(context):
     contents = get_theme_contents(context)
     email = ''
     for content in contents:
-        email = contents.contact_email
+        email = content.contact_email
         if email:
             return email
 

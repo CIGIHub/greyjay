@@ -550,21 +550,6 @@ class ArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin
             ],
             heading="Chapters Section"
         ),
-        #MultiFieldPanel(
-        #    [
-        #        FieldPanel('endnotes_heading'),
-        #        FieldPanel('endnote_identifier_style'),
-        #        InlinePanel('endnote_links', label="End Notes"),
-        #    ],
-        #    heading="End Notes Section"
-        #),
-        #MultiFieldPanel(
-        #    [
-        #        FieldPanel('citations_heading'),
-        #        InlinePanel('citation_links', label="Citations"),
-        #    ],
-        #    heading="Citations Section"
-        #),
     ]
 
     promote_panels = Page.promote_panels + [

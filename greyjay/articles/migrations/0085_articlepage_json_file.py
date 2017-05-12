@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='articlepage',
             name='json_file',
-            field=greyjay.articles.fields.WagtailFileField(upload_to=b'', max_length=255, blank=True, help_text='Only provide if you know your template will be filled with the contents of a JSON data file.', null=True, verbose_name='JSON file'),
+            field=greyjay.articles.fields.WagtailFileField(upload_to='', max_length=255, blank=True, help_text='Only provide if you know your template will be filled with the contents of a JSON data file.', null=True, verbose_name='JSON file'),
         ),
     ]

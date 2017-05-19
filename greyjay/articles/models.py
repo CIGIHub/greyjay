@@ -328,7 +328,7 @@ class ResponseArticleLink(Orderable, models.Model):
     ]
 
 
-class ArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin, PageLayoutOptions, VideoDocumentMixin):
+class BaseArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin, PageLayoutOptions, VideoDocumentMixin):
     excerpt = RichTextField(blank=True, default="")
     body = article_fields.BodyField()
     chapters = article_fields.ChapterField(blank=True, null=True)
@@ -402,6 +402,9 @@ class ArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin
         index.SearchField('get_topic_names', partial_match=True),
         index.SearchField('get_author_names', partial_match=True),
     ]
+
+    class Meta:
+        abstract = True
 
     def get_primary_topic_name(self):
         if self.primary_topic:
@@ -609,6 +612,10 @@ class ArticlePage(ThemeablePage, FeatureStyleFields, Promotable, ShareLinksMixin
         ObjectList(promote_panels, heading='Promote'),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
     ])
+
+
+class ArticlePage(BaseArticlePage):
+    pass
 
 
 @python_2_unicode_compatible

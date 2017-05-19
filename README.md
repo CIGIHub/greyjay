@@ -2,6 +2,10 @@
 
 Common Wagtail apps for CIGI projects
 
+## Dependencies
+
+Wagtail 1.10+, Django 1.11+ and Python 3.6+ is preferred.
+
 ## Articles
 
 The main app is `greyjay.articles` which contain rich stream field based

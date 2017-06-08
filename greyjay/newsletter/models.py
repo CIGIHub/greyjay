@@ -15,8 +15,8 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 @python_2_unicode_compatible
 class NewsletterListPage(Page):
     subpage_types = ['NewsletterPage']
-    intro_text = RichTextField()
-    body = RichTextField()
+    intro_text = RichTextField(blank=True)
+    body = RichTextField(blank=True)
 
     @property
     def subpages(self):

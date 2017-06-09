@@ -79,6 +79,7 @@ class ContributorPage(Page):
     email = models.EmailField(blank=True, default="")
     twitter_handle = models.CharField(max_length=16, blank=True, default="")
 
+    subtitle = RichTextField(blank=True, default="")
     short_bio = RichTextField(blank=True, default="")
     long_bio = RichTextField(blank=True, default="")
 
@@ -95,12 +96,15 @@ class ContributorPage(Page):
         index.SearchField('first_name', partial_match=True),
         index.SearchField('last_name', partial_match=True),
         index.SearchField('twitter_handle', partial_match=True),
+        index.SearchField('subtitle', partial_match=True),
         index.SearchField('short_bio', partial_match=True),
         index.SearchField('long_bio', partial_match=True),
     ]
 
     def search_result_text(self):
-        if self.short_bio:
+        if self.subtitle:
+            self.search_result_text = self.subtitle
+        elif self.short_bio:
             self.search_result_text = self.short_bio
         else:
             self.search_result_text = self.long_bio

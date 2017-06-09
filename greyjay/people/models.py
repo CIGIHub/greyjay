@@ -16,6 +16,8 @@ from wagtail.wagtailsearch import index
 
 class ContributorListPage(Page):
     subpage_types = ['ContributorPage']
+    intro_text = RichTextField(blank=True)
+    body = RichTextField(blank=True)
 
     def get_rows(self, contributors, number_of_columns=3, max_columns=4):
         rows = []
@@ -63,8 +65,13 @@ class ContributorListPage(Page):
         contributors = ContributorPage.objects.live().filter(featured=True).order_by('last_name', 'first_name')
         return self.get_rows(contributors)
 
+    content_panels = Page.content_panels + [
+        FieldPanel('intro_text'),
+        FieldPanel('body'),
+    ]
+
     edit_handler = TabbedInterface([
-        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(content_panels, heading='Content'),
         ObjectList(Page.promote_panels, heading='Promote'),
         ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
     ])

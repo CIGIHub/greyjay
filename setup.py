@@ -7,7 +7,7 @@ except ImportError:
 
 
 install_requires = [
-    "wagtail>=1.9,<1.10",
+    "wagtail>=1.9",
 ]
 
 # Documentation dependencies

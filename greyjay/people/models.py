@@ -139,6 +139,9 @@ class ContributorPage(Page):
     def __str__(self):
         return "{} {} - {}".format(self.first_name, self.last_name, self.email)
 
+    def get_admin_display_title(self):
+        return '{} ({})'.format(self.title, self.id)
+
     content_panels = Page.content_panels + [
         FieldPanel('first_name'),
         FieldPanel('last_name'),
